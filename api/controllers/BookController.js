@@ -8,15 +8,17 @@
 module.exports = {
     list: async (req, res) => {
         try {
-            let books = await Book.find();
-
+            let books = await Book.find()
+            .populate("categories")
+            .populate("authors")
             res.status(200).json({
                 message:"All Books",
                 Total_Book:books.length,
                 Books:books
             })
         } catch (error) {
-            res.status(404).josn({
+            console.log(error);
+            res.status(404).json({
                 message:"Not Found"
             })
         }
@@ -42,14 +44,16 @@ module.exports = {
     },
     create_book: async (req, res) => {
         try {
-            let { bookName, Price, publishYear, bookImage } = req.body
+            let { bookName, Price, publishYear, bookImage,categories ,authors ,users} = req.body
 
             const book = await Book.create({
                 bookName,
                 Price,
                 publishYear,
                 bookImage,
-
+                categories,
+                authors,
+                users
             });
 
             res.status(201).json({
@@ -58,11 +62,13 @@ module.exports = {
             })
 
         } catch (error) {
+            console.log(error);
             res.status(500).json({
                 message: "Not Created"
             })
         }
     },
+
     update_book: async (req, res) => {
         try {
             let id = req.params.bookId;

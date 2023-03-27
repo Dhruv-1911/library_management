@@ -9,15 +9,17 @@ module.exports = {
 
     list: async (req, res) => {
         try {
-            let authors = await Author.find();
+            let authors = await Author.find()
+                .populate("books", { select: ['bookName'] })
 
             res.status(200).json({
                 message: "All author",
-                Total_Author:authors.length,
+                Total_Author: authors.length,
                 authors
             })
 
         } catch (error) {
+            console.log(error);
             res.status(404).json({
                 message: "authors not found"
             })
@@ -36,6 +38,7 @@ module.exports = {
                 })
             }
             else {
+                console.log(error);
                 res.status(404).json({
                     message: "author Not Found"
                 })

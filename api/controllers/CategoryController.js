@@ -11,7 +11,10 @@ module.exports = {
     //list of all category 
     list: async (req, res) => {
         try {
-            const category = await Category.find();
+            const{page,limit,search=""} =req.query
+            const category = await Category.find({categoryName:{contains:search}})
+            .paginate({page,limit})
+            .populate("books" ,{select : ['bookName']})
 
             res.status(200).json({
                 message: "All Category",
@@ -19,6 +22,7 @@ module.exports = {
             })
 
         } catch (error) {
+            console.log(error);
             res.status(404).json({
                 message: "Categories not found"
             })

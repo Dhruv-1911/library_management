@@ -98,6 +98,62 @@ module.exports = {
         }
     },
 
+    issue_book: async (req, res) => {
+        try {
+
+            let id = req.params.userId
+            console.log(id);
+            let uId = await User.findOne({ id : id });
+            // console.log(req.body.book);
+        //    let Id= req.body.book
+            let bId = await Book.find({id:req.query.book})
+        console.log(req.query.book);
+
+            // console.log(bId[0].isIssue);
+            // console.log(bId[0].id === req.query.book);
+            if (bId[0].id === req.query.book)
+             {  
+
+                // let bookId = await Book.find({where:{id:req.query}})
+                // console.log(bookId);
+
+                // uId[0].books[0].isIssue
+                // let issue = await User.update({ isIssue: false }).set({ isIssue: true })
+                // console.log(bookId[0].isIssue);
+                // console.log(bId[0].id);
+               //  let  MId=bId[1].id;
+                // let Issue=bId.isIssue;
+
+                console.log(req.query.book);
+                let issue = await Book.update({id:req.query.book}).set({isIssue:true}).fetch()
+                res.status(200).json({
+                    issue
+                })
+            }
+            else{
+                res.status(500).send({
+                    message:"user not found"
+                })
+            }
+
+        } catch (error) {
+            // console.log(error);
+            res.status(500).json({
+                error: error
+            })
+        }
+    },
+
+    return_book:async(req,res)=>{
+        try {
+            
+        } catch (error) {
+            res.status(500).json({
+                error: error
+            })
+        }
+    },
+
     //log-out user or admin 
     log_out: async (req, res) => {
         try {

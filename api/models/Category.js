@@ -13,10 +13,11 @@ module.exports = {
         type:"string",
         required: true,
       },
-      // Book:{
-      //   model:"book"
-      // }
 
+      books:{
+        collection:"book",
+        via:"categories"
+      }
 
   },
 

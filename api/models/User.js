@@ -28,10 +28,16 @@ module.exports = {
         return _.isString(value) && value.length >= 8;
       }
     },
+
     Role:{
       type:"string",
       defaultsTo:"User",
       isIn:["User","Admin"]
+    },
+
+    books:{
+      collection:"book",
+      via:"users"
     }
 
   },

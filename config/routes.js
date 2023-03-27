@@ -23,26 +23,28 @@ module.exports.routes = {
 
   'post /user/sign_up': 'UserController.sign_up',
   'post /user/login': 'UserController.login',
+  "get /user/issue/:userId":"UserController.issue_book",
   'get /user/logout/:userId': 'UserController.log_out',
-
+  
   'get /category/list':'CategoryController.list',
   'get /category/:categoryId':'CategoryController.single_category',
   'post /category/create':'CategoryController.create_category',
   'patch /category/:categoryId':'CategoryController.update_category',
   'delete /category/:categoryId':'CategoryController.delete_category',
-
+  
   'get /author/list':'AuthorController.list',
   'get /author/:authorId':'AuthorController.single_author',
   'post /author/create':'AuthorController.create_author',
   'patch /author/:authorId':'AuthorController.update_author',
   'delete /author/:authorId':'AuthorController.delete_author',
-
+  
   'get /book/list':'BookController.list',
   'get /book/:bookId':'BookController.single_book',
   'post /book/create':'BookController.create_book',
   'patch /book/:bookId':'BookController.update_book',
   'delete /book/:bookId':'BookController.delete_book',
-
+  // 'get /:search':'BookController.search_router',
+  
 
 
   /***************************************************************************

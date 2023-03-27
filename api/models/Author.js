@@ -33,6 +33,11 @@ module.exports = {
     dateOfDeath: {
       type: "ref",
       columnType: "datetime"
+    },
+
+    books:{
+      collection:"book",
+      via:"authors"
     }
 
   },

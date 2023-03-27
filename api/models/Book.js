@@ -20,7 +20,7 @@ module.exports = {
     },
 
     publishYear: {
-      type: "number",
+      type: "string",
       required: true
     },
 
@@ -29,11 +29,25 @@ module.exports = {
       required: true
     },
     
-    // Categories:{
-    //   collection:"category",
-    //   via:"Book"
-    // }
+    categories:{
+      model:"category",
+      required:true
+    },
 
+    authors:{
+      model:"author",
+      required:true
+    },
+    
+    users:{
+      model:"user",
+      required:true
+    },
+    
+    isIssue:{
+      type: "boolean", 
+      defaultsTo: false
+    },
 
   },
 
