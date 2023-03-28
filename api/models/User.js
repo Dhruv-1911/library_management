@@ -35,12 +35,12 @@ module.exports = {
       isIn:["User","Admin"]
     },
 
+    //here use one to many association one book issue or return many user
     books:{
       collection:"book",
       via:"users"
     }
 
   },
-
 };
 

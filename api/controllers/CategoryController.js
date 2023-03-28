@@ -11,46 +11,48 @@ module.exports = {
     //list of all category 
     list: async (req, res) => {
         try {
-            const{page,limit,search=""} =req.query
-            const category = await Category.find({categoryName:{contains:search}})
-            .paginate({page,limit})
-            .populate("books" ,{select : ['bookName']})
+            const { skip, limit,search } = req.query;
+            const category = await Category.find({
+                categoryName: { startsWith: search } //search with category name
+              }).skip(skip*limit).limit(limit)
+                .populate("books", { select: ['bookName'] });
 
             res.status(200).json({
                 message: "All Category",
+                count:category.length,
                 category
-            })
+            });
 
         } catch (error) {
             console.log(error);
             res.status(404).json({
                 message: "Categories not found"
-            })
+            });
         }
     },
 
-    //signle category
+    //single category
     single_category: async (req, res) => {
         try {
             const id = req.params.categoryId
 
-            const category = await Category.findOne({ _id: id })
+            const category = await Category.findOne({ id: id });
             console.log(category);
             if (category) {
                 res.status(200).json({
                     category: category
-                })
+                });
             }
             else {
                 res.status(404).json({
                     message: "Category Not Found"
-                })
+                });
             }
 
         } catch (error) {
             res.status(500).json({
                 error: error
-            })
+            });
         }
     },
 
@@ -65,43 +67,43 @@ module.exports = {
             res.status(201).json({
                 message: "Create Category",
                 category
-            })
+            });
 
         } catch (error) {
             res.status(500).json({
                 message: "Not Created"
-            })
+            });
         }
     },
 
     //update a category
     update_category: async (req, res) => {
         try {
-            let { categoryName } = req.body
+            let { categoryName } = req.body;
             let id = req.params.categoryId;
 
-            const Match = await Category.findOne({ _id: id })
+            const Match = await Category.findOne({ id: id });
 
             if (Match) {
-                await Category.update({ _id: id }).set({
+                await Category.update({ id: id }).set({
                     categoryName: categoryName
                 });
 
                 res.status(200).json({
                     message: "update Category",
-                })
+                });
             }
             else {
                 res.status(404).json({
                     message: "Category Not Found"
-                })
+                });
             }
 
         } catch (error) {
             console.log(error);
             res.status(500).json({
                 message: "Not updated"
-            })
+            });
         }
 
     },
@@ -110,10 +112,10 @@ module.exports = {
     delete_category: async (req, res) => {
         try {
             let id = req.params.categoryId;
-            const Match = await Category.findOne({ _id: id })
+            const Match = await Category.findOne({ id: id });
 
             if (Match) {
-                await Category.destroy({ _id: id });
+                await Category.destroy({ id: id });
                 res.status(200).send({
                     message: "category Delete "
                 });
@@ -121,14 +123,13 @@ module.exports = {
             else {
                 res.status(404).json({
                     message: "Category Not Found"
-                })
+                });
             }
         }
         catch (error) {
-            res.status(500).json
-                ({
-                    message: "Not Deleted"
-                });
+            res.status(500).json({
+                message: "Not Deleted"
+            });
         }
 
     }

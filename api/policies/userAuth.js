@@ -6,14 +6,10 @@ module.exports = (req, res, next) => {
     try {
         const token = req.cookies.token;
 
-        // console.log(token);
-        //here verify Jwt token
-
-        const verify = Constant.JWT.verify(token, Constant.JWT_Secret);
         
-        // req.user=verify;
-        // console.log("verify id", verify.userId);
-        // console.log("params",req.params.userId);
+        //here verify Jwt token
+        const verify = Constant.JWT.verify(token, Constant.JWT_Secret);
+    
         if (verify.userId === (req.params.userId || req.body.User )) {
             next();
         }

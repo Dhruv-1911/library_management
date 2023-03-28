@@ -35,6 +35,7 @@ module.exports = {
       columnType: "datetime"
     },
 
+    //here use one to many association i author as many book
     books:{
       collection:"book",
       via:"authors"

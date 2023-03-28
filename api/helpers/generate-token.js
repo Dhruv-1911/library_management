@@ -11,10 +11,12 @@ module.exports = {
 
 
   inputs: {
+    
     //pass the data with token
     data: {
       type: "json"
     },
+
     //token expire time
     expireIn: {
       type: "number"

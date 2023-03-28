@@ -32,9 +32,6 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
-    // console.log("input password",inputs.password);
-    // console.log("input password",inputs.U_password);
-    
     let Match = await Constant.bcrypt.compare(inputs.password,inputs.U_password);
 
     return exits.success({ Match })

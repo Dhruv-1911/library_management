@@ -6,21 +6,18 @@ module.exports = (req, res, next) => {
     try {
         const token = req.cookies.token;
 
-        // console.log(token);
-
         //here verify Jwt token
-
-        const verify = Constant.JWT.verify(token,Constant.JWT_Secret);
-        // console.log("verify" , verify);
+        const verify = Constant.JWT.verify(token, Constant.JWT_Secret);
 
         if (verify.Role === "Admin") {
             next();
         }
+
         else {
+            // console.log(error);
             res.status(404).json({
                 message: "Please! Login With Right Credential.."
             })
-
         }
 
     } catch (error) {

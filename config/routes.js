@@ -22,8 +22,9 @@ module.exports.routes = {
   // '/': { view: 'pages/homepage' },
 
   'post /user/sign_up': 'UserController.sign_up',
+  'get /user/list': 'UserController.issueList',
+  'get /user/ReturnList': 'UserController.returnList',
   'post /user/login': 'UserController.login',
-  "get /user/issue/:userId":"UserController.issue_book",
   'get /user/logout/:userId': 'UserController.log_out',
   
   'get /category/list':'CategoryController.list',
@@ -43,9 +44,11 @@ module.exports.routes = {
   'post /book/create':'BookController.create_book',
   'patch /book/:bookId':'BookController.update_book',
   'delete /book/:bookId':'BookController.delete_book',
-  // 'get /:search':'BookController.search_router',
   
+  "get /user/search":"BookController.userList",
 
+  "get /issue/:userId":"UserController.issue_book",
+  "get /return/:userId":"UserController.return_book",
 
   /***************************************************************************
   *                                                                          *

@@ -14,6 +14,7 @@ module.exports = {
         required: true,
       },
 
+      //here use one to many association one category as many book
       books:{
         collection:"book",
         via:"categories"

@@ -20,7 +20,9 @@ module.exports.policies = {
   // '*': true,
 
   UserController:{
-    "log_out":"userAuth"
+    "log_out":"userAuth",
+    "issue_book":"adminAuth",
+    "return_book":"adminAuth"
   },
   AuthorController:{
     "*":"adminAuth"

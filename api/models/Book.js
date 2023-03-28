@@ -28,26 +28,33 @@ module.exports = {
       type: "string",
       required: true
     },
-    
+    //here use one to many association one category as many book
     categories:{
       model:"category",
       required:true
     },
 
+    //here use one to many association one author as many book
     authors:{
       model:"author",
       required:true
     },
     
+    //here use one to many association one book can issue or return many user
     users:{
       model:"user",
       required:true
     },
-    
+
     isIssue:{
-      type: "boolean", 
-      defaultsTo: false
+      type:"boolean",
+      defaultsTo:false,
     },
+
+    isReturn:{
+      type:"boolean",
+      defaultsTo:false,
+    }
 
   },
 
