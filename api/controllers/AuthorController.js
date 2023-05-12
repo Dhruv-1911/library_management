@@ -140,7 +140,7 @@ module.exports = {
                     message: getMessage.ID_REQUIRE,
                 });
             }
-
+            //find id into author model
             const Match_a = await Author.findOne({ id: id });
 
             if (Match_a) {
