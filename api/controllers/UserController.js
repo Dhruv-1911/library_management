@@ -7,7 +7,8 @@
 
 
 
-const Constant = sails.config.constant
+const Constant = sails.config.constant;
+const getMessage = sails.config.messages;
 
 module.exports = {
     //user or admin sign up
@@ -20,22 +21,30 @@ module.exports = {
             let hash = await sails.helpers.hashPassword.with({
                 password: Password
             });
+
+            let capitalize = (str)=>{
+                return(
+                    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+                )
+            }
+
             // console.log(hash);
             let user = await User.create({
-                Name: Name,
-                Email: Email,
+                Name:capitalize(Name.trim()),
+                Email: Email.toLowerCase(),
                 Password: hash.hash,
                 Role: Role
             });
 
             res.status(201).json({
-                message: "User Sign up",
+                message: getMessage.USER_SIGNUP,
                 user
             });
 
         } catch (error) {
+            console.log(error);
             res.status(500).json({
-                message: error
+                message: getMessage.WENT_WRONG
             });
         }
     },
@@ -75,25 +84,25 @@ module.exports = {
                     });
 
                     res.status(200).json({
-                        message: "User login",
+                        message: getMessage.USER_LOGIN,
                         token: token
                     });
                 }
                 else {
-                    res.status(500).json({
-                        message: " Email or Password not Match"
+                    res.status(400).json({
+                        message: getMessage.EMAIL_PWD_NOT_MATCH
                     });
                 }
             } else {
                 res.status(404).json({
-                    message: "email not found"
+                    message: getMessage.EMAIL_NOT_FOUND
                 });
             }
 
         } catch (error) {
             console.log(error);
             res.status(500).json({
-                message: "All field required"
+                message: getMessage.WENT_WRONG
             });
         }
     },
@@ -105,14 +114,14 @@ module.exports = {
                 .populate("books",{ where :{isIssue : true}});
 
             res.status(200).json({
-                message: "All User",
+                message: getMessage.ALL_USER,
                 user
             });
 
         } catch (error) {
             console.log(error);
-            res.status(404).json({
-                message: "Categories not found"
+            res.status(500).json({
+                message: getMessage.WENT_WRONG
             });
         }
     },
@@ -124,14 +133,14 @@ module.exports = {
                 .populate("books",{ where :{isReturn : true}});
 
             res.status(200).json({
-                message: "All User",
+                message: getMessage.ALL_USER,
                 user
             });
 
         } catch (error) {
             console.log(error);
-            res.status(404).json({
-                message: "Categories not found"
+            res.status(500).json({
+                message: getMessage.WENT_WRONG
             });
         }
     },
@@ -164,15 +173,15 @@ module.exports = {
                 });
             }
             else {
-                res.status(500).send({
-                    message: "Book not found"
+                res.status(404).send({
+                    message: getMessage.BOOK_NOT_FOUND
                 });
             }
 
         } catch (error) {
             // console.log(error);
             res.status(500).json({
-                error: error
+                message: getMessage.WENT_WRONG
             });
         }
     },
@@ -206,15 +215,15 @@ module.exports = {
                 });
             }
             else {
-                res.status(500).send({
-                    message: "Book not found"
+                res.status(404).send({
+                    message: getMessage.BOOK_NOT_FOUND
                 });
             }
 
         } catch (error) {
             // console.log(error);
             res.status(500).json({
-                error: error
+                message: getMessage.WENT_WRONG
             });
         }
     },
@@ -226,11 +235,11 @@ module.exports = {
             res.clearCookie("token");
 
             res.send({
-                message: "user logout "
+                message: getMessage.USER_DELETE
             });
         } catch (error) {
             res.status(500).json({
-                error: error
+                message: getMessage.WENT_WRONG
             });
         }
     }
